@@ -26,6 +26,7 @@ plugins {
 description = 'Ballerina - sap.jco Java Native'
 
 dependencies {
+    implementation files('libs/sapjco3.jar', 'libs/sapidoc3.jar')
     implementation group: 'org.ballerinalang', name: 'ballerina-runtime', version: "${ballerinaLangVersion}"
 }
 

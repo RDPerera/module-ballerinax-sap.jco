@@ -42,6 +42,18 @@ This repository only contains the source code for the package.
 
    > **Note**: Ensure that the Docker daemon is running before executing any tests.
 
+4. Download `sapidoc3.jar` and `sapjco3.jar` middleware libraries from the SAP support portal and copy those libraries
+   to `native/libs` folder.
+
+5. Download the native SAP JCo library and copy it to the JAVA Class path. (This is for running test cases and examples
+   ONLY)
+
+   | OS      | Native SAP jcolibrary |
+   |---------|-----------------------|
+   | Linux   | `libsapjco3.so`       |
+   | Windows | `sapjco3.dll`         |
+   | MacOS   | `libsapjco3.dylib`    |
+
 ### Build options
 
 Execute the commands below to build from the source.
