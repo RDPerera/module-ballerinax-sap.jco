@@ -28,6 +28,8 @@ description = 'Ballerina - sap.jco Java Native'
 dependencies {
     implementation files('libs/sapjco3.jar', 'libs/sapidoc3.jar')
     implementation group: 'org.ballerinalang', name: 'ballerina-runtime', version: "${ballerinaLangVersion}"
+    implementation group: 'org.slf4j', name: 'slf4j-jdk14', version: "${slf4jVersion}"
+    implementation group: 'org.testng', name: 'testng', version: '7.7.0'
 }
 
 tasks.withType(JavaCompile) {
@@ -37,16 +39,28 @@ tasks.withType(JavaCompile) {
 sourceCompatibility = JavaVersion.VERSION_17
 
 test {
-    testLogging {
-        showStackTraces = true
-        showStandardStreams = true
-        events "failed"
-        exceptionFormat "full"
+    useTestNG() {
+        suites 'src/test/resources/testng.xml'
     }
-    jacoco {
-        enabled = true
-        destinationFile = file("$buildDir/coverage-reports/jacoco.exec")
-        includeNoLocationClasses = true
+    testLogging.showStandardStreams = true
+    testLogging {
+        events "PASSED", "FAILED", "SKIPPED"
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} successes, ${result.failedTestCount} failures, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
     }
 }
 
@@ -62,6 +76,10 @@ spotbugsMain {
     reports {
         text.enabled = true
     }
+}
+
+spotbugsTest {
+    enabled = false
 }
 
 task validateSpotbugs() {
