@@ -21,5 +21,6 @@
      requires sapidoc3;
     requires io.ballerina.runtime;
      requires org.slf4j;
+     requires java.logging;
      exports io.ballerina.lib.sap;
 }
