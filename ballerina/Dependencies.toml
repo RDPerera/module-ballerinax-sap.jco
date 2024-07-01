@@ -5,16 +5,7 @@
 
 [ballerina]
 dependencies-toml-version = "2"
-distribution-version = "2201.9.0"
-
-[[package]]
-org = "ballerina"
-name = "crypto"
-version = "2.7.2"
-dependencies = [
-	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "time"}
-]
+distribution-version = "2201.8.6"
 
 [[package]]
 org = "ballerina"
@@ -32,30 +23,6 @@ version = "0.0.0"
 modules = [
 	{org = "ballerina", packageName = "jballerina.java", moduleName = "jballerina.java"}
 ]
-
-[[package]]
-org = "ballerina"
-name = "lang.__internal"
-version = "0.0.0"
-dependencies = [
-	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "lang.object"}
-]
-
-[[package]]
-org = "ballerina"
-name = "lang.int"
-version = "0.0.0"
-dependencies = [
-	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "lang.__internal"},
-	{org = "ballerina", name = "lang.object"}
-]
-
-[[package]]
-org = "ballerina"
-name = "lang.object"
-version = "0.0.0"
 
 [[package]]
 org = "ballerina"
@@ -88,35 +55,12 @@ dependencies = [
 ]
 
 [[package]]
-org = "ballerina"
-name = "time"
-version = "2.4.0"
-dependencies = [
-	{org = "ballerina", name = "jballerina.java"}
-]
-
-[[package]]
-org = "ballerina"
-name = "uuid"
-version = "1.8.0"
-dependencies = [
-	{org = "ballerina", name = "crypto"},
-	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "lang.int"},
-	{org = "ballerina", name = "time"}
-]
-modules = [
-	{org = "ballerina", packageName = "uuid", moduleName = "uuid"}
-]
-
-[[package]]
 org = "ballerinax"
 name = "sap.jco"
 version = "0.1.0"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "uuid"}
+	{org = "ballerina", name = "log"}
 ]
 modules = [
 	{org = "ballerinax", packageName = "sap.jco", moduleName = "sap.jco"}
