@@ -82,7 +82,7 @@
 # + useSapGui - The SAP use SAP GUI (jco.client.use_sapgui).
 # + denyInitialPassword - The SAP deny initial password (jco.client.deny_initial_password).
 # + repositoryRoundtripOptimization - The SAP repository roundtrip optimization (jco.destination.repository_roundtrip_optimization).
-public type JCoDestinationConfig record {
+public type DestinationConfig record {
     @display {label: "Host Name (jco.client.ashost)"}
     string host;
     @display {label: "System Number (jco.client.sysnr)"}
