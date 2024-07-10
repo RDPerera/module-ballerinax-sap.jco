@@ -31,7 +31,6 @@ import com.sap.conn.jco.JCoFunction;
 import com.sap.conn.jco.JCoParameterList;
 import com.sap.conn.jco.JCoRepository;
 import com.sap.conn.jco.JCoStructure;
-import io.ballerina.runtime.api.Environment;
 import io.ballerina.runtime.api.TypeTags;
 import io.ballerina.runtime.api.creators.ValueCreator;
 import io.ballerina.runtime.api.types.RecordType;
@@ -49,11 +48,15 @@ import java.math.BigDecimal;
 
 public class Client {
 
+    private static final String DESTINATION_ID = "destinationId";
+    private static final String RETURN = "RETURN";
+    private static final String RFC_DESTINATION = "RFC_DESTINATION";
+
     private static final Logger logger = LoggerFactory.getLogger(Client.class);
 
     public static Object initializeClient(BObject client, BMap<BString, Object> jcoDestinationConfig) {
         try {
-            String destinationName = jcoDestinationConfig.getStringValue(StringUtils.fromString("destinationId")).
+            String destinationName = jcoDestinationConfig.getStringValue(StringUtils.fromString(DESTINATION_ID)).
                     getValue();
             BallerinaDestinationDataProvider dp = new BallerinaDestinationDataProvider();
             com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(dp);
@@ -67,7 +70,8 @@ public class Client {
             return SAPErrorCreator.fromJCoException(e);
         }
     }
-    public static Object execute (Environment env, BObject client, BString functionName,
+
+    public static Object execute(BObject client, BString functionName,
                                   BMap<BString, Object> inputParams, BTypedesc outputParamType) {
             try {
                 int outputParamsTypeTag = outputParamType.getDescribingType().getTag();
@@ -97,9 +101,9 @@ public class Client {
 
                 // Process the results
                 JCoParameterList exportParams = function.getExportParameterList();
-                JCoStructure exportStructure = exportParams.getStructure("RETURN");
+                JCoStructure exportStructure = exportParams.getStructure(RETURN);
 
-                if (!exportStructure.getString("TYPE").equals("") &&
+                if (!exportStructure.getString("TYPE").isEmpty() &&
                         !exportStructure.getString("TYPE").equals("S")) {
                     return SAPErrorCreator.fromBError(exportStructure.getString("MESSAGE"), null);
                 }
@@ -142,10 +146,10 @@ public class Client {
         }
     }
     private static void setDestination(BObject bapiClientObject, JCoDestination destination) {
-        bapiClientObject.addNativeData("RFC_DESTINATION", destination);
+        bapiClientObject.addNativeData(RFC_DESTINATION, destination);
     }
     private static JCoDestination getDestination(BObject bapiClientObject) {
-        return (JCoDestination) bapiClientObject.getNativeData("RFC_DESTINATION");
+        return (JCoDestination) bapiClientObject.getNativeData(RFC_DESTINATION);
     }
     private static BMap<BString, Object> getOutputMap(JCoStructure exportStructure, StructureType outputParamType) {
         BMap<BString, Object> outputMap = ValueCreator.createRecordValue((RecordType) outputParamType);
@@ -177,7 +181,7 @@ public class Client {
                                 (StructureType) outputParamType.getFields().get(fieldName).getFieldType()));
                         break;
                     default:
-                        SAPErrorCreator.fromBError("Error while retrieving output parameter for field: " +
+                        throw SAPErrorCreator.fromBError("Error while retrieving output parameter for field: " +
                                 fieldName + ". Unsupported type " + type, null);
                 }
             }
@@ -202,7 +206,7 @@ public class Client {
                     break;
                     // Add support for other types including structs as required.
                 default:
-                    SAPErrorCreator.fromBError("Error while setting input parameter for field: " +
+                    throw SAPErrorCreator.fromBError("Error while setting input parameter for field: " +
                             entry.getKey().toString() + ". Unsupported type " + type, null);
             }
         });

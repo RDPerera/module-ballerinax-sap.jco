@@ -19,4 +19,10 @@ public class SAPErrorCreator {
     public static BError fromBError(String message, BError cause) {
         return ErrorCreator.createDistinctError("JCo Error: ", getModule(), StringUtils.fromString(message), cause);
     }
+
+    public static BError createError(String message, Throwable throwable) {
+        BError cause = ErrorCreator.createError(throwable);
+        return ErrorCreator.createError(
+                ModuleUtils.getModule(), "SAP ERROR: ", StringUtils.fromString(message), cause, null);
+    }
 }

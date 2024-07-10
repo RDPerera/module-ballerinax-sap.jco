@@ -14,7 +14,7 @@
 // specific language governing permissions and limitations
 // under the License.
 
-//import ballerina/uuid;
+import ballerina/uuid;
 import ballerina/jballerina.java as java;
 
 # A Ballerina client for SAP BAPI/RFC.
@@ -26,9 +26,7 @@ public isolated client class Client {
     # + configurations - The configurations required to initialize the BAPI client.
     # + return - An error if the initialization fails.
     public isolated function init(*DestinationConfig configurations) returns Error? {
-        //string destinationId = uuid:createType4AsString();
-        string destinationId = "TEST_DESTINATION";
-        configurations["destinationId"] = destinationId;
+        configurations["destinationId"] = uuid:createType4AsString();
         check initializeClient(self, configurations);
     }
 

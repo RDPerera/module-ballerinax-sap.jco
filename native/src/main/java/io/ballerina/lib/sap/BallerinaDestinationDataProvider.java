@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class BallerinaDestinationDataProvider implements DestinationDataProvider {
+
     private final Map<String, Properties> destinationProperties = new HashMap<>();
 
     @Override
@@ -122,7 +123,7 @@ public class BallerinaDestinationDataProvider implements DestinationDataProvider
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("serializationFormat")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_SERIALIZATION_FORMAT,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("serializationFormat")).toString());
+                            StringUtils.fromString("serializationFormat")).toString());
         }
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("delta")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_DELTA, jcoDestinationConfig.getStringValue(
@@ -171,7 +172,7 @@ public class BallerinaDestinationDataProvider implements DestinationDataProvider
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("poolCheckConnection")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_POOL_CHECK_CONNECTION,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("poolCheckConnection")).toString());
+                            StringUtils.fromString("poolCheckConnection")).toString());
         }
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("repositoryDestination")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_REPOSITORY_DEST, jcoDestinationConfig.getStringValue(
@@ -192,7 +193,7 @@ public class BallerinaDestinationDataProvider implements DestinationDataProvider
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("repositoryCheckInterval")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_REPOSITORY_CHECK_INTERVAL,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("repositoryCheckInterval")).toString());
+                            StringUtils.fromString("repositoryCheckInterval")).toString());
         }
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("trace")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_TRACE, jcoDestinationConfig.getStringValue(
@@ -241,7 +242,7 @@ public class BallerinaDestinationDataProvider implements DestinationDataProvider
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("tlsClientCertificateLogon")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_TLS_CLIENT_CERTIFICATE_LOGON,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("tlsClientCertificateLogon")).toString());
+                            StringUtils.fromString("tlsClientCertificateLogon")).toString());
         }
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("proxyHost")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_PROXY_HOST, jcoDestinationConfig.getStringValue(
@@ -262,7 +263,7 @@ public class BallerinaDestinationDataProvider implements DestinationDataProvider
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("wsPingCheckInterval")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_PING_CHECK_INTERVAL,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("wsPingCheckInterval")).toString());
+                            StringUtils.fromString("wsPingCheckInterval")).toString());
         }
 
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("wsPingPeriod")) != null) {
@@ -284,18 +285,14 @@ public class BallerinaDestinationDataProvider implements DestinationDataProvider
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("denyInitialPassword")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_DENY_INITIAL_PASSWORD,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("denyInitialPassword")).toString());
+                            StringUtils.fromString("denyInitialPassword")).toString());
         }
         if (jcoDestinationConfig.getStringValue(StringUtils.fromString("repositoryRoundtripOptimization")) != null) {
             properties.setProperty(DestinationDataProvider.JCO_REPOSITORY_ROUNDTRIP_OPTIMIZATION,
                     jcoDestinationConfig.getStringValue(
-                    StringUtils.fromString("repositoryRoundtripOptimization")).toString());
+                            StringUtils.fromString("repositoryRoundtripOptimization")).toString());
         }
         destinationProperties.put(jcoDestinationConfig.getStringValue(
                 StringUtils.fromString("destinationId")).toString(), properties);
-    }
-
-    public void removeDestination(String destinationName) {
-        destinationProperties.remove(destinationName);
     }
 }
