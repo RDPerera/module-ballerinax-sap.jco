@@ -39,11 +39,7 @@ import java.util.ArrayList;
 public class Listener {
 
     private static final Logger logger = LoggerFactory.getLogger(Client.class);
-    private static final String DESTINATION_ID = "destinationId";
-    private static final String SERVICE_NAME = "serviceName";
-    private static final String JCO_SERVER = "JCO_SERVER";
-    private static final String JCO_SERVICES = "JCO_SERVICES";
-    private static final String JCO_STARTED_SERVICES = "JCO_STARTED_SERVICES";
+
     private static final ArrayList<BObject> startedServices = new ArrayList<>();
     private static final boolean started = false;
     private static ArrayList<BObject> services = new ArrayList<>();
@@ -51,16 +47,16 @@ public class Listener {
 
     public static Object init(BObject listenerBObject, BMap<BString, Object> jcoDestinationConfig) {
         try {
-            String destinationName = jcoDestinationConfig.getStringValue(StringUtils.fromString(DESTINATION_ID)).
-                    getValue();
+            String destinationName = jcoDestinationConfig.getStringValue(
+                    StringUtils.fromString(SAPConstants.DESTINATION_ID)).getValue();
             BallerinaDestinationDataProvider dp = new BallerinaDestinationDataProvider();
             com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(dp);
             dp.addDestination(jcoDestinationConfig);
             JCoDestination destination = JCoDestinationManager.getDestination(destinationName);
             JCoIDocServer server = JCoIDoc.getServer(destination.getDestinationName());
-            listenerBObject.addNativeData(JCO_SERVER, server);
-            listenerBObject.addNativeData(JCO_SERVICES, services);
-            listenerBObject.addNativeData(JCO_STARTED_SERVICES, startedServices);
+            listenerBObject.addNativeData(SAPConstants.JCO_SERVER, server);
+            listenerBObject.addNativeData(SAPConstants.JCO_SERVICES, services);
+            listenerBObject.addNativeData(SAPConstants.JCO_STARTED_SERVICES, startedServices);
             return null;
         } catch (JCoException e) {
             logger.error("Destination lookup failed!!!!");
@@ -75,16 +71,16 @@ public class Listener {
                                 Object name) {
         runtime = environment.getRuntime();
         try {
-            JCoIDocServer server = (JCoIDocServer) listenerBObject.getNativeData(JCO_SERVER);
+            JCoIDocServer server = (JCoIDocServer) listenerBObject.getNativeData(SAPConstants.JCO_SERVER);
             if (service == null) {
                 return null;
             }
             if (name != null && TypeUtils.getType(name).getTag() == TypeTags.STRING_TAG) {
-                service.addNativeData(SERVICE_NAME, ((BString) name).getValue());
+                service.addNativeData(SAPConstants.SERVICE_NAME, ((BString) name).getValue());
             }
             if (isStarted()) {
                 services =
-                        (ArrayList<BObject>) listenerBObject.getNativeData(JCO_SERVICES);
+                        (ArrayList<BObject>) listenerBObject.getNativeData(SAPConstants.JCO_SERVICES);
                 startReceivingIDocs(service, server, listenerBObject);
             }
             services.add(service);
@@ -98,7 +94,7 @@ public class Listener {
 
     public static Object start(BObject client) {
         try {
-            JCoIDocServer server = (JCoIDocServer) client.getNativeData(JCO_SERVER);
+            JCoIDocServer server = (JCoIDocServer) client.getNativeData(SAPConstants.JCO_SERVER);
             server.start();
         } catch (Exception e) {
             logger.error("Server start failed!!!!");
@@ -116,8 +112,9 @@ public class Listener {
     }
 
     public static Object detach(BObject listener, BObject service) {
-        ArrayList<BObject> startedServices = (ArrayList<BObject>) listener.getNativeData(JCO_STARTED_SERVICES);
-        ArrayList<BObject> services = (ArrayList<BObject>) listener.getNativeData(JCO_SERVICES);
+        ArrayList<BObject> startedServices = (ArrayList<BObject>) listener.getNativeData(
+                SAPConstants.JCO_STARTED_SERVICES);
+        ArrayList<BObject> services = (ArrayList<BObject>) listener.getNativeData(SAPConstants.JCO_SERVICES);
         try {
             startedServices.remove(service);
             services.remove(service);
@@ -130,7 +127,7 @@ public class Listener {
 
     public static Object stopListener(BObject client) {
         try {
-            JCoIDocServer server = (JCoIDocServer) client.getNativeData(JCO_SERVER);
+            JCoIDocServer server = (JCoIDocServer) client.getNativeData(SAPConstants.JCO_SERVER);
             server.stop();
         } catch (Exception e) {
             logger.error("Server start failed!!!!");

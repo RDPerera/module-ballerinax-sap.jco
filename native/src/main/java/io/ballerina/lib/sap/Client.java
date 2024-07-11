@@ -47,17 +47,12 @@ import org.slf4j.LoggerFactory;
 import java.math.BigDecimal;
 
 public class Client {
-
-    private static final String DESTINATION_ID = "destinationId";
-    private static final String RETURN = "RETURN";
-    private static final String RFC_DESTINATION = "RFC_DESTINATION";
-
     private static final Logger logger = LoggerFactory.getLogger(Client.class);
 
     public static Object initializeClient(BObject client, BMap<BString, Object> jcoDestinationConfig) {
         try {
-            String destinationName = jcoDestinationConfig.getStringValue(StringUtils.fromString(DESTINATION_ID)).
-                    getValue();
+            String destinationName = jcoDestinationConfig.getStringValue(StringUtils.fromString(
+                    SAPConstants.DESTINATION_ID)).getValue();
             BallerinaDestinationDataProvider dp = new BallerinaDestinationDataProvider();
             com.sap.conn.jco.ext.Environment.registerDestinationDataProvider(dp);
             dp.addDestination(jcoDestinationConfig);
@@ -101,11 +96,11 @@ public class Client {
 
                 // Process the results
                 JCoParameterList exportParams = function.getExportParameterList();
-                JCoStructure exportStructure = exportParams.getStructure(RETURN);
+                JCoStructure exportStructure = exportParams.getStructure(SAPConstants.RETURN);
 
-                if (!exportStructure.getString("TYPE").isEmpty() &&
-                        !exportStructure.getString("TYPE").equals("S")) {
-                    return SAPErrorCreator.fromBError(exportStructure.getString("MESSAGE"), null);
+                if (!exportStructure.getString(SAPConstants.TYPE).isEmpty() &&
+                        !exportStructure.getString(SAPConstants.TYPE).equals(SAPConstants.S)) {
+                    return SAPErrorCreator.fromBError(exportStructure.getString(SAPConstants.MESSAGE), null);
                 }
                 return getOutputMap(exportStructure, outputParamsStructType);
 
@@ -146,10 +141,10 @@ public class Client {
         }
     }
     private static void setDestination(BObject bapiClientObject, JCoDestination destination) {
-        bapiClientObject.addNativeData(RFC_DESTINATION, destination);
+        bapiClientObject.addNativeData(SAPConstants.RFC_DESTINATION, destination);
     }
     private static JCoDestination getDestination(BObject bapiClientObject) {
-        return (JCoDestination) bapiClientObject.getNativeData(RFC_DESTINATION);
+        return (JCoDestination) bapiClientObject.getNativeData(SAPConstants.RFC_DESTINATION);
     }
     private static BMap<BString, Object> getOutputMap(JCoStructure exportStructure, StructureType outputParamType) {
         BMap<BString, Object> outputMap = ValueCreator.createRecordValue((RecordType) outputParamType);
