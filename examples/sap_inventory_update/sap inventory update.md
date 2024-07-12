@@ -2,7 +2,7 @@
 
 In this example, we will demonstrate how to integrate external data into an SAP system using the Ballerina SAP JCo
 Connector, showcasing Ballerina's data mapping capabilities and the RFC function calling feature. The scenario involves
-a fictional company, "BestWidgets Inc.," which manufactures and supplies various types of widgets. BestWidgets Inc. uses
+a fictional company, "BestWidgets Inc." which manufactures and supplies various types of widgets. BestWidgets Inc. uses
 a third-party logistics provider for inventory management, which exposes an API for inventory updates.
 
 The process starts with fetching the latest inventory data from the third-party API, which includes details like widget
@@ -11,7 +11,7 @@ system's expected input format for inventory updates. Once transformed, the data
 Function Call (RFC) to update the inventory records. The response from SAP, indicating success or failure of the update,
 is then processed to finalize the operation.
 
-![Overview](./resources/doc_images/diagram.png)
+![Overview](https://raw.githubusercontent.com/RDPerera/module-ballerinax-sap.jco/test/examples/sap_inventory_update/resources/doc_images/diagram.png)
 
 **Step-by-Step Process:**
 
@@ -26,7 +26,7 @@ built-in [data mapper](https://ballerina.io/learn/vs-code-extension/implement-th
 allows you to define the mapping between the source and target data structures using a visual editor in the Ballerina
 Composer tool.
 
-![Data Mapper](./resources/doc_images/bal-data-mapper.png)
+![Data Mapper](https://raw.githubusercontent.com/RDPerera/module-ballerinax-sap.jco/test/examples/sap_inventory_update/resources/doc_images/bal_data_mapper.png)
 
 This visual editor provides a drag-and-drop interface to define the mapping between the source and target data
 structures, making it easy to transform data between different formats.

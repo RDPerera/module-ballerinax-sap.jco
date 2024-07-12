@@ -6,7 +6,7 @@ The scenario involves "GlobalExports Inc.," a company that uses external data so
 details. These updates are converted into iDocs and sent to their SAP system for processing in the format of the
 DELVRY03 iDoc type, commonly used for delivery and shipment processing.
 
-![Overview](./resources/docs_images/diagram.png)
+![Overview](https://raw.githubusercontent.com/RDPerera/module-ballerinax-sap.jco/test/examples/idoc_automation/resources/docs_images/diagram.png)
 
 **Step-by-Step Process:**
 
@@ -22,7 +22,7 @@ the [Ballerina Data Mapper](https://ballerina.io/learn/vs-code-extension/impleme
 map the shipment data fields to the corresponding fields in the iDoc record. Once the data mapping is complete, the
 record can be converted into XML format, which is the iDoc format that can be sent to the SAP system.
 
-![Data Mapper Screenshot](./resources/docs_images/data_mapper.png)
+![Data Mapper Screenshot](https://raw.githubusercontent.com/RDPerera/module-ballerinax-sap.jco/test/examples/idoc_automation/resources/docs_images/bal_data_mapper.png)
 
 ## Prerequisites
 
