@@ -1,1 +1,1 @@
-./sap inventory update.md
+../sap inventory update.md

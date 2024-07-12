@@ -46,4 +46,3 @@ Monitor the output for logs indicating the receipt and processing of iDocs, conf
 ---
 
 This structure provides clear instructions on how to set up and execute the example, emphasizing the integration and automation capabilities of Ballerina in handling iDocs for supplier order management.
-

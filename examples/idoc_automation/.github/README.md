@@ -1,1 +1,1 @@
-./idoc automation.md
+../idoc automation.md

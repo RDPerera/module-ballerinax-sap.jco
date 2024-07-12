@@ -14,13 +14,12 @@ environment for businesses.
 
 The `ballerinax/sap.jco` package exposes the SAP JCo library as ballerina functions.
 
-Certainly! Here's an expanded version of the "Optional Parameters" section within the Setup Guide to cover additional potential parameters that might be needed based on different SAP configurations:
-
----
-
 ## Setup Guide
 
 ### Obtain SAP Connection Parameters
+
+To connect to an SAP system, you need to obtain the following connection parameters from your SAP administrator. These
+parameters are required to establish a connection to the SAP system:
 
 #### Required Parameters:
 
@@ -30,28 +29,9 @@ Certainly! Here's an expanded version of the "Optional Parameters" section withi
 - **User Name**: Your SAP user account name.
 - **Password**: Your account password.
 
-#### Optional Parameters:
-
-In addition to the required parameters, your setup may require the following optional parameters depending on the security settings, network configuration, and specific features used:
-
-- **Language**: The language in which the SAP system communicates.
-- **Group**: Specifies the logon group for load balancing purposes.
-- **SAP Router**: Defines a route to an SAP system behind a router, useful in complex network topologies.
-- **X509 Cert**: Needed if X509 certificates are used for authentication.
-- **SNC Partner Name**: Required for setups using Secure Network Communications.
-- **Use TLS**: Indicates whether to secure the connection with TLS.
-- **Proxy Settings** (Host, User, Port): Necessary if your network configuration requires connection via a proxy server.
-- **Authentication Type**: Determines the method of authentication used, which could be basic, OAuth, etc.
-- **Code Page**: For systems using particular code pages for character encoding.
-- **Alias User**: A user alias if applicable.
-- **Max Get Client Time**: The maximum time in milliseconds to wait for a connection from the pool.
-- **Peak Limit**: The maximum number of active connections that can be created for a destination.
-- **Pool Capacity**: The maximum number of idle connections kept open by the connection pool.
-- **Expiration Time**: Duration after which an idle connection will be closed.
-- **Serialization Format**: Specifies the serialization format for communication.
-- **Use SAP GUI**: Indicates whether to launch the SAP GUI automatically when the connection is opened.
-
-There may be additional parameters required based on your organization's SAP configuration. Consult your SAP administrator for the complete list of parameters needed for your setup.
+There may be additional parameters required based on your organization's SAP configuration. Consult your SAP
+administrator
+for the complete list of parameters needed for your setup.
 
 ## Quickstart
 
@@ -67,27 +47,21 @@ import ballerinax/sap.jco;
 
 ### Step 2: Create a new connector instance
 
-#### Initialize a JCo Client
+Configure the necessary SAP connection parameters in `Config.toml` in the project directory:
 
-This can be done by providing SAP connection parameters.
+```toml
+[DestinationConfig]
+host = "XXXXXXXX"
+systemNumber = "XXXXXXXX"
+jcoClient = "XXXXXXXX"
+user = "XXXXXXXX"
+password = "XXXXXXXX"
+```
+
+Then, create a new JCo client instance using the configurations.
 
 ```ballerina
-configurable string host = ?;
-configurable string systemNumber = ?;
-configurable string jcoClient = ?;
-configurable string user = ?;
-configurable string password = ?;
-configurable string group = ?;
-
-jco:DestinationConfig configurations = {
-    host: host,
-    systemNumber: systemNumber,
-    jcoClient: jcoClient,
-    user: user,
-    password: password,
-    group: group
-};
-
+configurable jco:DestinationConfig configurations = ?;
 jco:Client jcoClient = check new (configurations);
 ```
 
@@ -135,7 +109,6 @@ service jco:Service on iDocListener {
         check io:fileWriteXml("resources/received_idoc.xml", idoc);
         io:println("IDoc received and saved.");
     }
-
     remote function onError(error err) returns error? {
         io:println("Error occurred: ", err);
     }

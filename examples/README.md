@@ -1,12 +1,12 @@
 # Examples
 
-The `Ballerina SAP JCo Connector` provides practical examples illustrating usage in various scenarios. Explore these scenarios to understand how to automate processes involving SAP systems and external data sources.
+The `Ballerina SAP JCo Connector` provides practical examples illustrating usage in various scenarios. Explore these scenarios to understand how to automate processes involving SAP systems and external data sources using Ballerina.
 
-1. [SAP Inventory Update for BestWidgets](./sap_inventory_update/sap%20inventory%20update.md) - Integrate external inventory data into an SAP system and update inventory records through an RFC.
+1. [SAP Inventory Update via RFC](./sap_inventory_update/) - Integrate external inventory data into an SAP system and update inventory records through an RFC.
 
-2. [Automate iDoc Dispatch for GlobalExports](./idoc_automation/idoc%20automation.md) - Demonstrate the automation of generating and dispatching iDocs for shipment details using the Ballerina SAP JCo Connector.
+2. [Automate iDoc Dispatch](./idoc_automation/) - Demonstrate the automation of generating and dispatching iDocs for shipment details.
 
-3. [Automated Supplier Order Processing via iDoc Listener](./order_idoc_listener/order%20idoc%20listener.md) - Set up an iDoc listener to automate supplier order processing at AutoParts Inc.
+3. [Automated Supplier Order Processing via iDoc Listener](./order_idoc_listener/) - Set up an iDoc listener to automate supplier order processing.
 
 ## Prerequisites
 
