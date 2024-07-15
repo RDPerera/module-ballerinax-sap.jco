@@ -73,14 +73,14 @@ Now you can use the operations available within the connector.
 
 ```ballerina
 public function main() returns error? {
-    jco:ImportParams importParams = {
+    ImportParams importParams = {
         importParam1: "Hello",
         importParam2: 123,
         importParam3: 123.45,
         importParam4: 123.456
     };
 
-    jco:ExportParams? result = check jcoClient->execute("TEST_FUNCTION", importParams);
+    ExportParams? result = check jcoClient->execute("TEST_FUNCTION", importParams);
     if (result is jco:ExportParams) {
         io:println("Result: ", result);
     } else {
